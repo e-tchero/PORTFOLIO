@@ -7,8 +7,8 @@ interface Props {
 }
 
 const {
-  title = "Abdulhameed Amin — Software Developer",
-  description = "Abdulhameed Amin — Software Developer, Security Researcher, and Founder at ETCHERO. Selected projects and professional work.",
+  title = "Abdulhameed Aminu — Software Developer",
+  description = "Abdulhameed Aminu — Software Developer, Security Researcher, and Founder at ETCHERO. Selected projects and professional work.",
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
@@ -17,7 +17,7 @@ const ogImage = new URL("/og.jpg", Astro.site).href;
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: "Abdulhameed Amin",
+  name: "Abdulhameed Aminu",
   jobTitle: "Software Developer",
   url: Astro.site?.href,
   image: ogImage,
@@ -25,7 +25,7 @@ const jsonLd = {
   worksFor: { "@type": "Organization", name: "ETCHERO", url: "https://etchero.ct.ws" },
   sameAs: [
     "https://github.com/e-tchero",
-    "https://www.linkedin.com/in/abdulhameed-amin/",
+    "https://www.linkedin.com/in/abdulhameed-aminu",
   ],
 };
 ---
@@ -43,14 +43,14 @@ const jsonLd = {
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Abdulhameed Amin" />
+    <meta property="og:site_name" content="Abdulhameed Aminu" />
     <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content="Building practical software, security tools, and useful digital products." />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Abdulhameed Amin — Software Developer and Founder at ETCHERO" />
+    <meta property="og:image:alt" content="Abdulhameed Aminu — Software Developer and Founder at ETCHERO" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content="Building practical software, security tools, and useful digital products." />

@@ -60,6 +60,6 @@ export const projects: Project[] = [
 
 export const links = {
   github: "https://github.com/e-tchero",
-  linkedin: "https://www.linkedin.com/in/abdulhameed-amin/",
+  linkedin: "https://www.linkedin.com/in/abdulhameed-aminu",
   etchero: "https://etchero.ct.ws",
 };

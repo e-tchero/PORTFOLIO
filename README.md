@@ -1,6 +1,6 @@
-# Abdulhameed Amin — Portfolio
+# Abdulhameed Aminu — Portfolio
 
-Astro-powered personal portfolio for **Abdulhameed Amin**.
+Astro-powered personal portfolio for **Abdulhameed Aminu**.
 
 - **Positioning:** Software Developer | Security Researcher | Founder at ETCHERO
 - **Hosting:** Cloudflare Pages
