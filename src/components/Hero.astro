@@ -1,0 +1,39 @@
+---
+import { Image } from "astro:assets";
+import portrait from "../assets/portrait.jpg";
+---
+
+<section class="hero shell" aria-labelledby="hero-title">
+  <div class="hero-copy">
+    <p class="eyebrow"><b aria-hidden="true"></b> SOFTWARE · SECURITY · SYSTEMS</p>
+    <h1 id="hero-title">Building things<br />that <em>work.</em></h1>
+    <p class="intro">
+      I'm Abdulhameed Amin — Software Developer, Security Researcher, and Founder at ETCHERO.
+      I build practical software and study the systems that make technology useful and dependable.
+    </p>
+    <div class="actions">
+      <a class="button" href="#work">Explore selected work <span aria-hidden="true">↘</span></a>
+      <a class="underlink" href="#contact">Start a conversation <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="meta">
+      <span>ABUJA, NIGERIA</span>
+      <span>BUILDING IN PUBLIC</span>
+    </div>
+  </div>
+
+  <div class="portrait">
+    <Image
+      src={portrait}
+      alt="Portrait of Abdulhameed Amin"
+      widths={[360, 420, 720, 840]}
+      sizes="(max-width: 760px) 82vw, 420px"
+      format="webp"
+      quality={80}
+      loading="eager"
+      fetchpriority="high"
+    />
+    <span class="portrait-note">01 / THE BUILDER</span>
+    <span class="seal" aria-hidden="true">A·A</span>
+  </div>
+  <div class="hero-rule"></div>
+</section>
