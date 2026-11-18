@@ -5,7 +5,7 @@ Astro-powered personal portfolio for **Abdulhameed Amin**.
 - **Positioning:** Software Developer | Security Researcher | Founder at ETCHERO
 - **Hosting:** Cloudflare Pages
 - **Repository:** https://github.com/e-tchero/PORTFOLIO
-- **Production URL:** https://abdulhameedamin-portfolio.pages.dev
+- **Production URL:** https://abdulhameed.pages.dev
 - **Production branch:** `main`
 
 ## Stack
@@ -66,7 +66,7 @@ Edit `src/data/projects.ts`. Descriptions intentionally distinguish project conc
 
 ## Domain
 
-The Cloudflare Pages hostname is currently `abdulhameedamin-portfolio.pages.dev`. When a custom domain is connected, update `site` in `astro.config.mjs` so canonical and Open Graph URLs stay correct.
+The Cloudflare Pages hostname is currently `abdulhameed.pages.dev`. When a custom domain is connected, update `site` in `astro.config.mjs` so canonical and Open Graph URLs stay correct.
 
 ## Outstanding launch checks
 
