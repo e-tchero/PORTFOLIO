@@ -22,8 +22,11 @@
   color-scheme: light dark;
 }
 
+/* Dark tokens are applied in two ways: automatically from the device
+   preference (the default "system" theme) and explicitly from the header
+   theme control. Keep the two blocks below identical. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --paper: #171816;
     --ink: #eeefe9;
     --body: #b1b2aa;
@@ -34,6 +37,23 @@
     --surface: #20221e;
     --surface-line: #41433d;
   }
+}
+
+:root[data-theme="dark"] {
+  --paper: #171816;
+  --ink: #eeefe9;
+  --body: #b1b2aa;
+  --muted: #a0a198;
+  --line: #383a35;
+  --sage: #9aa98d;
+  --sage-ink: #9aa98d;
+  --surface: #20221e;
+  --surface-line: #41433d;
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
 }
 
 /* ==========================================================================
@@ -180,6 +200,27 @@ nav a:hover,
   border-radius: 50%;
   background: #819a72;
   margin-right: 9px;
+}
+
+/* Theme control: hidden until the script marks it ready, so it is never a
+   dead control when JavaScript is disabled. */
+.theme {
+  display: none;
+  border: 0;
+  background: none;
+  padding: 3px 0;
+  font: 13px/1 var(--font-mono);
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.theme[data-theme-state] {
+  display: inline-block;
+}
+
+.theme:hover,
+.theme:focus-visible {
+  color: var(--ink);
 }
 
 /* ==========================================================================
@@ -548,19 +589,29 @@ form button {
    Dark-mode specifics
    ========================================================================== */
 @media (prefers-color-scheme: dark) {
-  .button {
+  :root:not([data-theme="light"]) .button {
     background: #eeefe9;
     color: #171816;
   }
 
-  .skip-link {
+  :root:not([data-theme="light"]) .skip-link {
     background: #eeefe9;
     color: #171816;
   }
 
-  .portrait:hover img {
+  :root:not([data-theme="light"]) .portrait:hover img {
     box-shadow: 18px 22px 44px #00000040;
   }
+}
+
+:root[data-theme="dark"] .button,
+:root[data-theme="dark"] .skip-link {
+  background: #eeefe9;
+  color: #171816;
+}
+
+:root[data-theme="dark"] .portrait:hover img {
+  box-shadow: 18px 22px 44px #00000040;
 }
 
 /* ==========================================================================

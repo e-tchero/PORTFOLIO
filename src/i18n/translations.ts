@@ -15,6 +15,10 @@ export const zh: Record<string, string> = {
   "a11y.skip": "跳到主要内容",
   "a11y.langGroup": "选择语言",
 
+  "theme.system": "主题：跟随系统",
+  "theme.light": "主题：浅色",
+  "theme.dark": "主题：深色",
+
   "nav.home": "Abdulhameed Aminu — 首页",
   "nav.work": "作品",
   "nav.about": "关于",

@@ -146,6 +146,9 @@ const jsonLd = {
             },
           );
 
+          // The theme control's label is localised too.
+          updateThemeButton();
+
           try {
             localStorage.setItem(STORAGE_KEY, lang);
           } catch (error) {
@@ -165,6 +168,81 @@ const jsonLd = {
           return String(navigator.language || "en").toLowerCase().indexOf("zh") === 0 ? "zh" : "en";
         }
 
+        // --- Theme: system (default) / light / dark -------------------------
+        var THEME_KEY = "portfolio-theme";
+        var THEME_COLORS = { light: "#f2f1ec", dark: "#171816" };
+        var THEME_GLYPHS = { system: "◐", light: "☀", dark: "☾" };
+        var THEME_LABELS = {
+          system: "Theme: system",
+          light: "Theme: light",
+          dark: "Theme: dark",
+        };
+        var themeButton = document.querySelector("[data-theme-cycle]");
+        var currentTheme = "system";
+
+        function prefersDark() {
+          return !!(
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches
+          );
+        }
+
+        // Keep the browser chrome colour in step with the effective theme.
+        function paintThemeColor() {
+          var effective =
+            currentTheme === "system" ? (prefersDark() ? "dark" : "light") : currentTheme;
+          Array.prototype.forEach.call(
+            document.querySelectorAll('meta[name="theme-color"]'),
+            function (meta) {
+              meta.setAttribute("content", THEME_COLORS[effective]);
+            },
+          );
+        }
+
+        function updateThemeButton() {
+          if (!themeButton) return;
+          var name = THEME_GLYPHS[currentTheme] ? currentTheme : "system";
+          var label =
+            root.getAttribute("data-lang") === "zh" && dict["theme." + name]
+              ? dict["theme." + name]
+              : THEME_LABELS[name];
+          themeButton.setAttribute("data-theme-state", currentTheme);
+          themeButton.textContent = THEME_GLYPHS[name];
+          themeButton.setAttribute("aria-label", label);
+          themeButton.setAttribute("title", label);
+        }
+
+        function applyTheme(mode) {
+          currentTheme = mode === "light" || mode === "dark" ? mode : "system";
+          root.setAttribute("data-theme", currentTheme);
+          paintThemeColor();
+          updateThemeButton();
+          try {
+            localStorage.setItem(THEME_KEY, currentTheme);
+          } catch (error) {
+            /* Storage blocked: the choice still applies to this visit. */
+          }
+        }
+
+        function initialTheme() {
+          try {
+            var saved = localStorage.getItem(THEME_KEY);
+            if (saved === "light" || saved === "dark" || saved === "system") return saved;
+          } catch (error) {
+            /* Fall through to following the device. */
+          }
+          return "system";
+        }
+
+        // In system mode, follow the device when it changes mid-visit.
+        if (window.matchMedia) {
+          window
+            .matchMedia("(prefers-color-scheme: dark)")
+            .addEventListener("change", function () {
+              if (currentTheme === "system") paintThemeColor();
+            });
+        }
+
         // Used by the contact form for its status messages.
         window.__pfT = function (key) {
           return (root.getAttribute("data-lang") === "zh" && dict[key]) || "";
@@ -173,13 +251,24 @@ const jsonLd = {
         document.addEventListener("click", function (event) {
           var target = event.target;
           if (!target || !target.closest) return;
-          var button = target.closest("[data-lang-set]");
-          if (!button) return;
-          event.preventDefault();
-          apply(button.getAttribute("data-lang-set"));
+
+          var langButton = target.closest("[data-lang-set]");
+          if (langButton) {
+            event.preventDefault();
+            apply(langButton.getAttribute("data-lang-set"));
+            return;
+          }
+
+          if (target.closest("[data-theme-cycle]")) {
+            event.preventDefault();
+            applyTheme(
+              currentTheme === "system" ? "light" : currentTheme === "light" ? "dark" : "system",
+            );
+          }
         });
 
         apply(initialLang());
+        applyTheme(initialTheme());
       })();
     </script>
   </body>

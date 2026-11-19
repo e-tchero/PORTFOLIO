@@ -65,6 +65,10 @@ Edit `src/data/projects.ts`. Descriptions intentionally distinguish project conc
 
 The site is bilingual. The `EN / 中文` control in the header switches languages in place (no reload), remembers the choice in `localStorage`, and defaults to Chinese when the browser's preferred language is Chinese. English is the default and lives in the markup; every Chinese string is keyed in `src/i18n/translations.ts` and referenced with `data-i18n`, `data-i18n-html` (copy containing `<em>`/`<br>`) or `data-i18n-attr` (attributes such as `aria-label` and `placeholder`). When copy changes, update both the markup and the matching Chinese entry.
 
+## Theme
+
+Light and dark are both supported. By default the site follows the device setting (`data-theme="system"`), and it updates live if the device switches while the page is open. The header control cycles system → light → dark → system, stores the choice under `portfolio-theme` in `localStorage`, and keeps the browser chrome colour in step. All colour tokens live in `src/styles/global.css`; the dark set is declared once for the device preference and once for an explicit choice, so keep those two blocks identical when changing colours.
+
 ## Social card
 
 `public/og.jpg` (1200×630) is used for link previews. Replace it if the portrait or title changes.
