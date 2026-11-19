@@ -12,13 +12,13 @@ const accessKey =
 <section class="contact shell section" id="contact" aria-labelledby="contact-title">
   <div class="contact-grid">
     <div>
-      <p class="eyebrow">HAVE SOMETHING IN MIND?</p>
-      <h2 id="contact-title">Let's make<br /><em>it happen.</em></h2>
-      <p class="aside">
+      <p class="eyebrow" data-i18n="contact.eyebrow">HAVE SOMETHING IN MIND?</p>
+      <h2 id="contact-title" data-i18n-html="contact.title">Let's make<br /><em>it happen.</em></h2>
+      <p class="aside" data-i18n="contact.aside">
         For roles, collaborations, project enquiries, or a useful conversation, send a message.
       </p>
       <p class="direct">
-        Prefer a direct route?
+        <span data-i18n="contact.direct">Prefer a direct route?</span>
         <a href={links.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
         <span aria-hidden="true">·</span>
         <a href={links.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
@@ -38,33 +38,47 @@ const accessKey =
           <input type="checkbox" name="botcheck" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
           <label>
-            Your name
-            <input name="name" autocomplete="name" maxlength="100" required placeholder="Name" />
+            <span data-i18n="contact.name">Your name</span>
+            <input
+              name="name"
+              autocomplete="name"
+              maxlength="100"
+              required
+              placeholder="Name"
+              data-i18n-attr="placeholder:contact.namePlaceholder"
+            />
           </label>
           <label>
-            Email address
+            <span data-i18n="contact.email">Email address</span>
             <input name="email" type="email" autocomplete="email" maxlength="200" required placeholder="you@example.com" />
           </label>
           <label>
-            What is this about?
+            <span data-i18n="contact.subject">What is this about?</span>
             <select name="subject" required>
-              <option value="" selected disabled>Select a topic</option>
-              <option>Employment opportunity</option>
-              <option>Project collaboration</option>
-              <option>Client enquiry</option>
-              <option>Other</option>
+              <option value="" selected disabled data-i18n="contact.subjectPlaceholder">Select a topic</option>
+              <option data-i18n="contact.optEmployment">Employment opportunity</option>
+              <option data-i18n="contact.optProject">Project collaboration</option>
+              <option data-i18n="contact.optClient">Client enquiry</option>
+              <option data-i18n="contact.optOther">Other</option>
             </select>
           </label>
           <label>
-            Message
-            <textarea name="message" rows="4" minlength="10" maxlength="5000" required placeholder="A little context about your message..."></textarea>
+            <span data-i18n="contact.message">Message</span>
+            <textarea
+              name="message"
+              rows="4"
+              minlength="10"
+              maxlength="5000"
+              required
+              placeholder="A little context about your message..."
+              data-i18n-attr="placeholder:contact.messagePlaceholder"></textarea>
           </label>
-          <button class="button" type="submit">Send message <span aria-hidden="true">↗</span></button>
+          <button class="button" type="submit"><span data-i18n="contact.send">Send message</span> <span aria-hidden="true">↗</span></button>
           <p id="form-status" role="status" aria-live="polite"></p>
         </form>
       ) : (
         <div class="contact-fallback">
-          <p class="lead">The quickest way to reach me is on GitHub or LinkedIn.</p>
+          <p class="lead" data-i18n="contact.fallbackLead">The quickest way to reach me is on GitHub or LinkedIn.</p>
           <div class="socials">
             <a href={links.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
             <a href={links.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
@@ -79,13 +93,17 @@ const accessKey =
   const form = document.querySelector<HTMLFormElement>("#contact-form");
   const status = document.querySelector<HTMLElement>("#form-status");
 
+  // The language toggle (Base.astro) exposes the current dictionary lookup here.
+  const translate = (key: string, fallback: string) =>
+    (window as Window & { __pfT?: (key: string) => string }).__pfT?.(key) || fallback;
+
   if (form && status) {
     const button = form.querySelector<HTMLButtonElement>("button[type=submit]");
 
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
       if (button) button.disabled = true;
-      status.textContent = "Sending…";
+      status.textContent = translate("contact.sending", "Sending…");
 
       try {
         const payload = Object.fromEntries(new FormData(form));
@@ -100,10 +118,12 @@ const accessKey =
         if (!response.ok || !data.success) throw new Error(data.message || "Message could not be sent.");
 
         form.reset();
-        status.textContent = "Message sent. Thank you for reaching out.";
+        status.textContent = translate("contact.sent", "Message sent. Thank you for reaching out.");
       } catch (error) {
         status.textContent =
-          error instanceof Error ? error.message : "Message could not be sent. Please try GitHub or LinkedIn instead.";
+          error instanceof Error
+            ? error.message
+            : translate("contact.error", "Message could not be sent. Please try GitHub or LinkedIn instead.");
       } finally {
         if (button) button.disabled = false;
       }

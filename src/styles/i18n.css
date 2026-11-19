@@ -1,0 +1,116 @@
+/* ==========================================================================
+   Language toggle + Chinese typography
+   Toggle state lives on <html data-lang="en|zh"> (see src/layouts/Base.astro).
+   ========================================================================== */
+
+.header-end {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.lang {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font: 11px var(--font-mono);
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.lang button {
+  border: 0;
+  border-bottom: 1px solid transparent;
+  background: none;
+  padding: 3px 0;
+  font: inherit;
+  letter-spacing: inherit;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.lang button:hover,
+.lang button[aria-pressed="true"] {
+  color: var(--ink);
+}
+
+.lang button[aria-pressed="true"] {
+  border-bottom-color: var(--ink);
+}
+
+.lang span {
+  opacity: 0.45;
+}
+
+/* --- Chinese (Simplified) ------------------------------------------------ */
+
+html[data-lang="zh"] {
+  --font-sans: "DM Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+    "Noto Sans SC", "Noto Sans CJK SC", sans-serif;
+  --font-serif: "Songti SC", "Noto Serif SC", "Noto Serif CJK SC", "SimSun", serif;
+  --font-mono: "DM Mono", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", monospace;
+}
+
+html[data-lang="zh"] h1,
+html[data-lang="zh"] h2 {
+  letter-spacing: -0.015em;
+  line-height: 1.22;
+}
+
+html[data-lang="zh"] h1 {
+  font-size: clamp(46px, 6.2vw, 84px);
+}
+
+html[data-lang="zh"] h2 {
+  font-size: clamp(38px, 4.8vw, 60px);
+}
+
+/* Chinese has no true italic; the display serif would slant awkwardly. */
+html[data-lang="zh"] h1 em,
+html[data-lang="zh"] h2 em {
+  font-style: normal;
+}
+
+html[data-lang="zh"] .availability,
+html[data-lang="zh"] .eyebrow,
+html[data-lang="zh"] .meta,
+html[data-lang="zh"] .portrait-note,
+html[data-lang="zh"] .footer {
+  letter-spacing: 0.04em;
+}
+
+/* --- Narrow screens ------------------------------------------------------ */
+
+@media (max-width: 760px) {
+  .header {
+    gap: 12px;
+  }
+
+  nav {
+    gap: 14px;
+  }
+
+  html[data-lang="zh"] h1 {
+    font-size: clamp(36px, 10.5vw, 60px);
+  }
+
+  html[data-lang="zh"] h2 {
+    font-size: clamp(30px, 8.4vw, 48px);
+  }
+}
+
+@media (max-width: 420px) {
+  .logo {
+    font-size: 21px;
+  }
+
+  nav {
+    gap: 11px;
+    font-size: 12px;
+  }
+
+  .lang {
+    font-size: 10px;
+    gap: 5px;
+  }
+}

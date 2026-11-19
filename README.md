@@ -23,7 +23,8 @@ public/            favicon, og.jpg (social card), robots.txt, _headers
 src/assets/        portrait.jpg (optimized at build time)
 src/components/    Header, Hero, Work, About, Contact, Footer
 src/data/          projects.ts — edit this to add or change projects
-src/layouts/       Base.astro — <head>, SEO tags, structured data
+src/i18n/          translations.ts — Chinese copy for the EN / 中文 toggle
+src/layouts/       Base.astro — <head>, SEO tags, structured data, language toggle runtime
 src/pages/         index.astro, 404.astro
 src/styles/        global.css
 ```
@@ -59,6 +60,10 @@ The Web3Forms access key is designed for browser use. Never put private API keys
 ## Project showcase
 
 Edit `src/data/projects.ts`. Descriptions intentionally distinguish project concepts/in-progress work from verified releases. Update project status only when implementation evidence supports it.
+
+## Languages
+
+The site is bilingual. The `EN / 中文` control in the header switches languages in place (no reload), remembers the choice in `localStorage`, and defaults to Chinese when the browser's preferred language is Chinese. English is the default and lives in the markup; every Chinese string is keyed in `src/i18n/translations.ts` and referenced with `data-i18n`, `data-i18n-html` (copy containing `<em>`/`<br>`) or `data-i18n-attr` (attributes such as `aria-label` and `placeholder`). When copy changes, update both the markup and the matching Chinese entry.
 
 ## Social card
 

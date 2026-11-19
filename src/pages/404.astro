@@ -8,10 +8,10 @@ import Footer from "../components/Footer.astro";
   <Header />
   <main id="main" class="shell not-found">
     <p class="eyebrow"><b aria-hidden="true"></b> 404</p>
-    <h1>Nothing<br />here <em>yet.</em></h1>
-    <p class="intro">The page you were looking for doesn't exist or has moved.</p>
+    <h1 data-i18n-html="notFound.title">Nothing<br />here <em>yet.</em></h1>
+    <p class="intro" data-i18n="notFound.body">The page you were looking for doesn't exist or has moved.</p>
     <div class="actions">
-      <a class="button" href="/">Back to the portfolio <span aria-hidden="true">↖</span></a>
+      <a class="button" href="/"><span data-i18n="notFound.back">Back to the portfolio</span> <span aria-hidden="true">↖</span></a>
     </div>
   </main>
   <Footer />

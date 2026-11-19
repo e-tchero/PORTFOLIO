@@ -1,5 +1,7 @@
 ---
 import "../styles/global.css";
+import "../styles/i18n.css";
+import { zh } from "../i18n/translations";
 
 interface Props {
   title?: string;
@@ -66,7 +68,119 @@ const jsonLd = {
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
   <body>
-    <a class="skip-link" href="#main">Skip to content</a>
+    <a class="skip-link" href="#main" data-i18n="a11y.skip">Skip to content</a>
     <slot />
+
+    <script
+      is:inline
+      define:vars={{
+        dict: zh,
+        zhTitle: zh["meta.title"],
+        zhDescription: zh["meta.description"],
+        defaultTitle: title,
+        defaultDescription: description,
+      }}
+    >
+      // Bilingual toggle: English is rendered in the markup, Chinese comes from
+      // src/i18n/translations.ts. This runs while the document is still parsing
+      // (end of <body>), so the chosen language is applied before first paint.
+      (function () {
+        var root = document.documentElement;
+        var STORAGE_KEY = "portfolio-lang";
+
+        var nodes = Array.prototype.slice
+          .call(document.querySelectorAll("[data-i18n],[data-i18n-html],[data-i18n-attr]"))
+          .map(function (el) {
+            var attrs = [];
+            if (el.dataset.i18nAttr) {
+              el.dataset.i18nAttr.split(",").forEach(function (pair) {
+                var at = pair.indexOf(":");
+                if (at === -1) return;
+                var attr = pair.slice(0, at).trim();
+                if (!attr) return;
+                attrs.push({
+                  attr: attr,
+                  key: pair.slice(at + 1).trim(),
+                  original: el.getAttribute(attr),
+                });
+              });
+            }
+            return { el: el, html: el.innerHTML, attrs: attrs };
+          });
+
+        function apply(lang) {
+          var isZh = lang === "zh";
+
+          nodes.forEach(function (node) {
+            var el = node.el;
+            var key = el.dataset.i18n || el.dataset.i18nHtml;
+            var value = (isZh && key && dict[key]) || "";
+
+            if (el.dataset.i18nHtml) {
+              el.innerHTML = value || node.html;
+            } else if (el.dataset.i18n) {
+              el.textContent = value || node.html;
+            }
+
+            node.attrs.forEach(function (item) {
+              var translated = isZh && dict[item.key];
+              if (translated) el.setAttribute(item.attr, translated);
+              else if (item.original !== null) el.setAttribute(item.attr, item.original);
+            });
+          });
+
+          root.setAttribute("data-lang", lang);
+          root.lang = isZh ? "zh-Hans" : "en";
+          document.title = isZh ? zhTitle : defaultTitle;
+
+          var meta = document.querySelector('meta[name="description"]');
+          if (meta) meta.setAttribute("content", isZh ? zhDescription : defaultDescription);
+
+          Array.prototype.forEach.call(
+            document.querySelectorAll("[data-lang-set]"),
+            function (button) {
+              button.setAttribute(
+                "aria-pressed",
+                button.getAttribute("data-lang-set") === lang ? "true" : "false",
+              );
+            },
+          );
+
+          try {
+            localStorage.setItem(STORAGE_KEY, lang);
+          } catch (error) {
+            /* Private mode or blocked storage: the toggle still works for this visit. */
+          }
+
+          document.dispatchEvent(new CustomEvent("portfolio:lang", { detail: { lang: lang } }));
+        }
+
+        function initialLang() {
+          try {
+            var saved = localStorage.getItem(STORAGE_KEY);
+            if (saved === "en" || saved === "zh") return saved;
+          } catch (error) {
+            /* Fall through to the browser preference. */
+          }
+          return String(navigator.language || "en").toLowerCase().indexOf("zh") === 0 ? "zh" : "en";
+        }
+
+        // Used by the contact form for its status messages.
+        window.__pfT = function (key) {
+          return (root.getAttribute("data-lang") === "zh" && dict[key]) || "";
+        };
+
+        document.addEventListener("click", function (event) {
+          var target = event.target;
+          if (!target || !target.closest) return;
+          var button = target.closest("[data-lang-set]");
+          if (!button) return;
+          event.preventDefault();
+          apply(button.getAttribute("data-lang-set"));
+        });
+
+        apply(initialLang());
+      })();
+    </script>
   </body>
 </html>

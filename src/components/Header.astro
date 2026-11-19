@@ -1,9 +1,16 @@
 <header class="header shell">
-  <a class="logo" href="#home" aria-label="Abdulhameed Aminu — home">AA<span>.</span></a>
+  <a class="logo" href="#home" aria-label="Abdulhameed Aminu — home" data-i18n-attr="aria-label:nav.home">AA<span>.</span></a>
   <nav aria-label="Main navigation">
-    <a href="#work">Work</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
+    <a href="#work" data-i18n="nav.work">Work</a>
+    <a href="#about" data-i18n="nav.about">About</a>
+    <a href="#contact" data-i18n="nav.contact">Contact</a>
   </nav>
-  <a class="availability" href="#contact"><i aria-hidden="true"></i> OPEN TO OPPORTUNITIES</a>
+  <div class="header-end">
+    <a class="availability" href="#contact"><i aria-hidden="true"></i><span data-i18n="header.availability">OPEN TO OPPORTUNITIES</span></a>
+    <div class="lang" role="group" aria-label="Language / 语言">
+      <button type="button" data-lang-set="en" aria-pressed="true" lang="en">EN</button>
+      <span aria-hidden="true">/</span>
+      <button type="button" data-lang-set="zh" aria-pressed="false" lang="zh-Hans">中文</button>
+    </div>
+  </div>
 </header>

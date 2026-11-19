@@ -5,10 +5,10 @@ import { projects } from "../data/projects";
 <section class="work shell section" id="work" aria-labelledby="work-title">
   <div class="section-head">
     <div>
-      <p class="eyebrow">SELECTED WORK / 2024—2026</p>
-      <h2 id="work-title">Projects with<br /><em>a purpose.</em></h2>
+      <p class="eyebrow" data-i18n="work.eyebrow">SELECTED WORK / 2024—2026</p>
+      <h2 id="work-title" data-i18n-html="work.title">Projects with<br /><em>a purpose.</em></h2>
     </div>
-    <p class="aside">
+    <p class="aside" data-i18n="work.aside">
       A selection of engineering projects and initiatives across software development, security, and business systems.
     </p>
   </div>
@@ -21,12 +21,12 @@ import { projects } from "../data/projects";
             <span class="number">{p.n}</span>
             <span class="project-main">
               <h3>{p.name}</h3>
-              <small>{p.tag}</small>
-              <span class="desc">{p.desc}</span>
+              <small data-i18n={`work.tag.${p.n}`}>{p.tag}</small>
+              <span class="desc" data-i18n={`work.desc.${p.n}`}>{p.desc}</span>
             </span>
-            <span class="state">{p.state}</span>
+            <span class="state" data-i18n={`work.state.${p.n}`}>{p.state}</span>
             <span class="arrow" aria-hidden="true">↗</span>
-            <span class="visually-hidden">(opens in a new tab)</span>
+            <span class="visually-hidden" data-i18n="work.opensNewTab">(opens in a new tab)</span>
           </a>
         </li>
       ))

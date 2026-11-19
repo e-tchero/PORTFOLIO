@@ -5,19 +5,19 @@ import portrait from "../assets/portrait.jpg";
 
 <section class="hero shell" aria-labelledby="hero-title">
   <div class="hero-copy">
-    <p class="eyebrow"><b aria-hidden="true"></b> SOFTWARE · SECURITY · SYSTEMS</p>
-    <h1 id="hero-title">Building things<br />that <em>work.</em></h1>
-    <p class="intro">
+    <p class="eyebrow"><b aria-hidden="true"></b> <span data-i18n="hero.eyebrow">SOFTWARE · SECURITY · SYSTEMS</span></p>
+    <h1 id="hero-title" data-i18n-html="hero.title">Building things<br />that <em>work.</em></h1>
+    <p class="intro" data-i18n="hero.intro">
       I'm Abdulhameed Aminu — Software Developer, Security Researcher, and Founder at ETCHERO.
       I build practical software and study the systems that make technology useful and dependable.
     </p>
     <div class="actions">
-      <a class="button" href="#work">Explore selected work <span aria-hidden="true">↘</span></a>
-      <a class="underlink" href="#contact">Start a conversation <span aria-hidden="true">↗</span></a>
+      <a class="button" href="#work"><span data-i18n="hero.work">Explore selected work</span> <span aria-hidden="true">↘</span></a>
+      <a class="underlink" href="#contact"><span data-i18n="hero.talk">Start a conversation</span> <span aria-hidden="true">↗</span></a>
     </div>
     <div class="meta">
-      <span>ABUJA, NIGERIA</span>
-      <span>BUILDING IN PUBLIC</span>
+      <span data-i18n="hero.location">ABUJA, NIGERIA</span>
+      <span data-i18n="hero.building">BUILDING IN PUBLIC</span>
     </div>
   </div>
 
@@ -25,6 +25,7 @@ import portrait from "../assets/portrait.jpg";
     <Image
       src={portrait}
       alt="Portrait of Abdulhameed Aminu"
+      data-i18n-attr="alt:hero.portraitAlt"
       widths={[360, 420, 720, 840]}
       sizes="(max-width: 760px) 82vw, 420px"
       format="webp"
@@ -32,7 +33,7 @@ import portrait from "../assets/portrait.jpg";
       loading="eager"
       fetchpriority="high"
     />
-    <span class="portrait-note">01 / THE BUILDER</span>
+    <span class="portrait-note" data-i18n="hero.portraitNote">01 / THE BUILDER</span>
     <span class="seal" aria-hidden="true">A·A</span>
   </div>
   <div class="hero-rule"></div>
